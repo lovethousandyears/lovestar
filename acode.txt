@@ -1,0 +1,765 @@
+
+import java.math.BigDecimal;
+import java.util.Scanner;
+
+//（1）定义学生接口
+Interface StudentInf{
+void setFee(double fee);    //设置每学期学费
+double getFee();            //获取每学期学费
+}
+//（2）定义教师接口
+Interface TeacherInf{
+void calPay(int hour);      //计算并设置月工资
+double getPay();             //获取月工资
+}            
+//（3）定义抽象类Student
+abstract class Student{
+String stuName;    //学生姓名
+double fee;     //每学期学费
+}
+//（4）定义抽象类Teacher
+abstract class Teacher{
+String teaName;    //教师姓名
+double basePay;    //每月固定工资
+double  hourlyPay           //课时费
+double  pay;             //每月工资
+}
+//（5）定义研究生类Graduate，派生自抽象类Student，并实现StudentInf和TeacherInf两个接口
+class Graduate extends Student implements StudentInf, TeacherInf{
+double  hourlyPay           //每小时酬劳
+double pay;             //每月酬劳
+Graduate( String stuName, double fee, double hourlyPay)    //构造函数
+{
+this.stuName=stuName;
+this.fee=fee;
+this.hourlyPay=hourPay;
+
+}
+public void setFee(double fee){
+this.fee=fee;
+}
+public double getFee(){
+return fee;
+}
+public void calPay(int hour){
+this.Pay=hour*hourlyPay;
+}
+public double getPay(){
+return Pay;
+}
+void loanStatus(){ //评估是否需要贷款
+if(Pay*12-fee*2<3600)
+System.out.println("You need a loan!");
+else
+System.out.println("Your pay is enough!");
+}
+} 
+
+//（6）定义”Undergraduate（本科生）”类，派生自Student抽象类，并实现学生接口
+class Undergraduate extends Student implements StudentInf{
+Graduate( String stuName, double fee)    //构造函数
+{
+this.stuName=stuName;
+this.fee=fee;
+}
+public void setFee(double fee){
+this.fee=fee;
+}
+public double getFee(){
+return fee;
+}
+} 
+
+//（7）从教师抽象类Teacher派生不同职称教师类，实现教师接口，求不同职称教师的月工资
+//1.教授
+class Professor extends Teacher implements TeacherInf{
+double  hourlyPay           //每小时酬劳
+double pay;             //每月酬劳
+Professor( String teaName, double basePay, double hourlyPay)    //构造函数
+{
+this.teaName=teaName;
+this.basePay=basePay;
+this.hourlyPay=hourPay;
+
+}
+public void setbasePay(double basePay){
+this.basePay=basePay;
+}
+public double getbasePay(){
+return basePay;
+}
+public void calPay(int hour){
+this.Pay=hour*hourlyPay+basePay;
+}
+public double getPay(){
+return Pay;
+}
+} 
+//2.副教授
+class FuProfessor extends Teacher implements TeacherInf{
+double  hourlyPay           //每小时酬劳
+double pay;             //每月酬劳
+FuProfessor( String teaName, double basePay, double hourlyPay)    //构造函数
+{
+this.teaName=teaName;
+this.basePay=basePay;
+this.hourlyPay=hourPay;
+
+}
+public void setbasePay(double basePay){
+this.basePay=basePay;
+}
+public double getbasePay(){
+return basePay;
+}
+public void calPay(int hour){
+this.Pay=hour*hourlyPay+basePay;
+}
+public double getPay(){
+return Pay;
+}
+} 
+//3.讲师
+class Lecturer extends Teacher implements TeacherInf{
+double  hourlyPay           //每小时酬劳
+double pay;             //每月酬劳
+Lecturer( String teaName, double basePay, double hourlyPay)    //构造函数
+{
+this.teaName=teaName;
+this.basePay=basePay;
+this.hourlyPay=hourPay;
+
+}
+public void setbasePay(double basePay){
+this.basePay=basePay;
+}
+public double getbasePay(){
+return basePay;
+}
+public void calPay(int hour){
+this.Pay=hour*hourlyPay+basePay;
+}
+public double getPay(){
+return Pay;
+}
+} 
+//4.助教
+class Assistant extends Teacher implements TeacherInf{
+double  hourlyPay           //每小时酬劳
+double pay;             //每月酬劳
+Assistant( String teaName, double basePay, double hourlyPay)    //构造函数
+{
+this.teaName=teaName;
+this.basePay=basePay;
+this.hourlyPay=hourPay;
+
+}
+public void setbasePay(double basePay){
+this.basePay=basePay;
+}
+public double getbasePay(){
+return basePay;
+}
+public void calPay(int hour){
+this.Pay=hour*hourlyPay+basePay;
+}
+public double getPay(){
+return Pay;
+}
+} 
+（8）定义学校类，设计其成员变量及成员函数，实现财务结算功能
+
+public class School{
+ public int balance;//定义学校账户余额
+ public int yue;
+
+public void menu(){
+Scanner input=new Scanner(System.in);
+do{
+System.out.println("------------------欢迎使用高校财务管理系统-----------------");
+System.out.println("|    1.创建基础账户信息                2.输入并显示教职工工资信息|");
+System.out.println("|    3.输入学生信息            4.学生学费收取以及教师工资发放    |");
+System.out.println("|    5.显示财务状况                     0.退出程序               |");
+System.out.println("-----------------------------------------------------------");
+int choose=input.nextInt();
+switch(choose){
+
+        case 1:
+		zhanghuchuangjian();
+		break;
+	
+	case 2:
+		jiaozhigongxingxi();
+		break;
+	case 3:
+		xueshenxingxi();
+		break;
+	case 4:
+               xuefeijigongzi();
+		break;
+	case 5:
+		caiwuzhuangkuang();
+		break;
+		
+	case 0:
+	System.out.println("感谢使用本程序，再见！");
+	exit(0);
+}
+}while(choose!=0)
+}
+
+public void zhanghuchuangjian(){
+	Scanner input=new Scanner(System.in);
+	System.out.println("请输入现在学校账户上有的金额：");
+        double balance=input.nextDouble();
+do{
+       	System.out.println("是否返回主菜单?");
+	System.out.println("1.是     2.否");
+        int a=input.nextInt();
+        if(a==1)
+        menu();
+        else if(a==2)
+{
+do{
+        System.out.println("是否输入有误?");
+	System.out.println("1.是     2.否");
+        int b=input.nextInt();
+       
+        if(b==1)
+        System.out.println("即将重新输入");
+        zhanghuchuangjian();
+        
+        else if(b==2)
+        System.out.println("当前学校账上有"+balance+"元");
+        System.out.println("即将返回主菜单");
+        menu();
+
+       else
+       System.out.println("输入有误，请重试");  
+   }while(b!=1||b!=2)
+}
+    else
+       System.out.println("输入有误，请重试"); 
+  }while(a!=1||a!=2) 
+}
+
+public void jiaozhigongxingxi(){
+Scanner input=new Scanner(System.in);
+do{
+System.out.println("------请选择等级输入基础工资信息---------");
+System.out.println("|    1.教授                2.副教授     |");
+System.out.println("|    3.讲师                4.助教       |");
+System.out.println("|             0.返回主菜单              |");
+System.out.println("-----------------------------------------");
+int a=input.nextInt();
+switch(a){
+case 1:
+		jiaoshougongzi();
+		break;
+	
+	case 2:
+		fujiaoshougongzi();
+		break;
+	case 3:
+		jiangshigongzi();
+		break;
+	case 4:
+		zhujiaogongzi();
+		break;
+	
+	case 0:
+	System.out.println("即将返回主菜单");
+	menu();
+}
+}while(a!=0)
+}
+
+
+public void jiaoshougongzi(){
+Scanner input=new Scanner(System.in);
+	System.out.print("请输入教授的姓名:");
+	String teaName=input.next();
+	System.out.print("请输入教授的基本工资:");
+	double basePay=input.nextDouble();
+	System.out.print("请输入教授的课时费:");
+	double hourlyPay=input.nextDouble();
+	System.out.print("请输入教授的课时:");
+	int hour=input.nextInt();
+	Professor professor=new  Professor(teaName,basePay,houriyPay);
+        professor.setbasePay(basePay);
+        professor.calPay(hour);
+
+do{
+       	System.out.println("是否输入完成?");
+	System.out.println("1.是     2.否");
+        int a=input.nextInt();
+        if(a==1)
+      {  
+        System.out.print("教授的姓名是："+teaName);
+	System.out.print("教授的基本工资为:"+basePay);
+	System.out.print("教授的课时费为:"+hourlyPay);
+	System.out.print("教授的课时:"+hour);
+	System.out.println("教授的月工资为"+professor.getPay());
+ 	System.out.println("是否返回菜单?");
+	System.out.println("1.是");
+        int c=input.nextInt();
+        if(c==1)
+    jiaozhigongxingxi()
+	}
+        else if(a==2)
+{
+do{
+        System.out.println("是否输入有误?");
+	System.out.println("1.是     2.否");
+        int b=input.nextInt();
+       
+        if(b==1)
+        System.out.println("即将重新输入");
+        zhanghuchuangjian();
+        
+        else if(b==2)
+        System.out.print("教授的姓名是："+teaName);
+	System.out.print("教授的基本工资为:"+basePay);
+	System.out.print("教授的课时费为:"+hourlyPay);
+	System.out.print("教授的课时:"+hour);
+	System.out.println("教授的月工资为"+professor.getPay());
+        System.out.println("即将返回菜单");
+  jiaozhigongxingxi()
+
+       else
+       System.out.println("输入有误，请重试");  
+   }while(b!=1||b!=2)
+}
+    else
+       System.out.println("输入有误，请重试"); 
+  }while(a!=1||a!=2) 
+}
+
+
+public void fujiaoshougongzi(){
+Scanner input=new Scanner(System.in);
+	System.out.print("请输入副教授的姓名:");
+	String teaName=input.next();
+	System.out.print("请输入副教授的基本工资:");
+	double basePay=input.nextDouble();
+	System.out.print("请输入副教授的课时费:");
+	double hourlyPay=input.nextDouble();
+	System.out.print("请输入副教授的课时:");
+	int hour=input.nextInt();
+	FuProfessor fuprofessor=new  FuProfessor(teaName,basePay,houriyPay);
+        fuprofessor.setbasePay(basePay);
+        fuprofessor.calPay(hour);
+
+do{
+       	System.out.println("是否输入完成?");
+	System.out.println("1.是     2.否");
+        int a=input.nextInt();
+        if(a==1)
+      {  
+        System.out.print("副教授的姓名是："+teaName);
+	System.out.print("副教授的基本工资为:"+basePay);
+	System.out.print("副教授的课时费为:"+hourlyPay);
+	System.out.print("副教授的课时:"+hour);
+	System.out.println("副教授的月工资为"+fuprofessor.getPay());
+ 	System.out.println("是否返回主菜单?");
+	System.out.println("1.是");
+        int c=input.nextInt();
+        if(c==1)
+    jiaozhigongxingxi()
+	}
+        else if(a==2)
+{
+do{
+        System.out.println("是否输入有误?");
+	System.out.println("1.是     2.否");
+        int b=input.nextInt();
+       
+        if(b==1)
+        System.out.println("即将重新输入");
+        zhanghuchuangjian();
+        
+        else if(b==2)
+        System.out.print("副教授的姓名是："+teaName);
+	System.out.print("副教授的基本工资为:"+basePay);
+	System.out.print("副教授的课时费为:"+hourlyPay);
+	System.out.print("副教授的课时:"+hour);
+	System.out.println("副教授的月工资为"+fuprofessor.getPay());
+        System.out.println("即将返回主菜单");
+ jiaozhigongxingxi()
+
+       else
+       System.out.println("输入有误，请重试");  
+   }while(b!=1||b!=2)
+}
+    else
+       System.out.println("输入有误，请重试"); 
+  }while(a!=1||a!=2) 
+}
+
+public void jiangshigongzi(){
+Scanner input=new Scanner(System.in);
+	System.out.print("请输入讲师的姓名:");
+	String teaName=input.next();
+	System.out.print("请输入讲师的基本工资:");
+	double basePay=input.nextDouble();
+	System.out.print("请输入讲师的课时费:");
+	double hourlyPay=input.nextDouble();
+	System.out.print("请输入讲师的课时:");
+	int hour=input.nextInt();
+	Lecturer lecturer=new Lecturer(teaName,basePay,houriyPay);
+        lecturer.setbasePay(basePay);
+        lecturer.calPay(hour);
+
+do{
+       	System.out.println("是否输入完成?");
+	System.out.println("1.是     2.否");
+        int a=input.nextInt();
+        if(a==1)
+      {  
+        System.out.print("讲师的姓名是："+teaName);
+	System.out.print("讲师的基本工资为:"+basePay);
+	System.out.print("讲师的课时费为:"+hourlyPay);
+	System.out.print("讲师的课时:"+hour);
+	System.out.println("讲师的月工资为"+lecturer.getPay());
+ 	System.out.println("是否返回主菜单?");
+	System.out.println("1.是");
+        int c=input.nextInt();
+        if(c==1)
+    jiaozhigongxingxi()
+	}
+        else if(a==2)
+{
+do{
+        System.out.println("是否输入有误?");
+	System.out.println("1.是     2.否");
+        int b=input.nextInt();
+       
+        if(b==1)
+        System.out.println("即将重新输入");
+        zhanghuchuangjian();
+        
+        else if(b==2)
+        System.out.print("讲师的姓名是："+teaName);
+	System.out.print("讲师的基本工资为:"+basePay);
+	System.out.print("讲师的课时费为:"+hourlyPay);
+	System.out.print("讲师的课时:"+hour);
+	System.out.println("讲师的月工资为"+lecturer.getPay());
+        System.out.println("即将返回主菜单");
+jiaozhigongxingxi()
+
+       else
+       System.out.println("输入有误，请重试");  
+   }while(b!=1||b!=2)
+}
+    else
+       System.out.println("输入有误，请重试"); 
+  }while(a!=1||a!=2) 
+}
+
+
+public void zhujiaogongzi(){
+Scanner input=new Scanner(System.in);
+	System.out.print("请输入助教的姓名:");
+	String teaName=input.next();
+	System.out.print("请输入助教的基本工资:");
+	double basePay=input.nextDouble();
+	System.out.print("请输入助教的课时费:");
+	double hourlyPay=input.nextDouble();
+	System.out.print("请输入助教的课时:");
+	int hour=input.nextInt();
+	Assistant assistant=new Assistant(teaName,basePay,houriyPay);
+        assistant.setbasePay(basePay);
+        assistant.calPay(hour);
+
+do{
+       	System.out.println("是否输入完成?");
+	System.out.println("1.是     2.否");
+        int a=input.nextInt();
+        if(a==1)
+      {  
+        System.out.print("助教的姓名是："+teaName);
+	System.out.print("助教的基本工资为:"+basePay);
+	System.out.print("助教的课时费为:"+hourlyPay);
+	System.out.print("助教的课时:"+hour);
+	System.out.println("助教的月工资为"+assistant.getPay());
+ 	System.out.println("是否返回主菜单?");
+	System.out.println("1.是");
+        int c=input.nextInt();
+        if(c==1)
+   jiaozhigongxingxi()
+	}
+        else if(a==2)
+{
+do{
+        System.out.println("是否输入有误?");
+	System.out.println("1.是     2.否");
+        int b=input.nextInt();
+       
+        if(b==1)
+        System.out.println("即将重新输入");
+        zhanghuchuangjian();
+        
+        else if(b==2)
+        System.out.print("助教的姓名是："+teaName);
+	System.out.print("助教的基本工资为:"+basePay);
+	System.out.print("助教的课时费为:"+hourlyPay);
+	System.out.print("助教的课时:"+hour);
+	System.out.println("助教的月工资为"+assistant.getPay());
+        System.out.println("即将返回主菜单");
+ jiaozhigongxingxi()
+
+       else
+       System.out.println("输入有误，请重试");  
+   }while(b!=1||b!=2)
+}
+    else
+       System.out.println("输入有误，请重试"); 
+  }while(a!=1||a!=2) 
+}
+
+public void xueshenxingxi(){
+Scanner input=new Scanner(System.in);
+do{
+System.out.println("-------------请选择等级输入信息----------");
+System.out.println("|    1.本科                2.研究生     |");
+System.out.println("|             0.返回主菜单              |");
+System.out.println("-----------------------------------------");
+int a=input.nextInt();
+switch(a){
+        case 1:
+		benkexueshen();
+		break;
+	
+	case 2:
+		yanjiushen();
+		break;
+
+	case 0:
+	System.out.println("即将返回主菜单");
+	menu();
+}
+}while(a!=0)
+}
+
+
+public void benkexueshen(){
+Scanner input=new Scanner(System.in);
+	System.out.print("请输入本科生的姓名:");
+	String stuName=input.next();
+	System.out.print("请输入本科生的学费:");
+	double fee=input.nextDouble();
+	Undergraduate undergraduate=new Undergraduate(stuName,fee);
+        undergraduate.setFee(fee);
+
+do{
+       	System.out.println("是否输入完成?");
+	System.out.println("1.是     2.否");
+        int a=input.nextInt();
+        if(a==1)
+      {  
+        System.out.print("本科生的姓名是："+stuName);
+	System.out.print("本科生的学费为:"+undergraduate.getFee());
+ 	System.out.println("是否返回主菜单?");
+	System.out.println("1.是");
+        int c=input.nextInt();
+        if(c==1)
+   xueshenxingxi();
+	}
+        else if(a==2)
+{
+do{
+        System.out.println("是否输入有误?");
+	System.out.println("1.是     2.否");
+        int b=input.nextInt();
+       
+        if(b==1)
+        System.out.println("即将重新输入");
+        zhanghuchuangjian();
+        
+        else if(b==2)
+        System.out.print("本科生的姓名是："+stuName);
+	System.out.print("本科生的学费为:"+undergraduate.getFee());
+        System.out.println("即将返回主菜单");
+   xueshenxingxi();
+
+       else
+       System.out.println("输入有误，请重试");  
+   }while(b!=1||b!=2)
+}
+    else
+       System.out.println("输入有误，请重试"); 
+  }while(a!=1||a!=2) 
+}
+
+public void yanjiushen(){
+Scanner input=new Scanner(System.in);
+do{
+System.out.println("-------------------请选择----------------");
+System.out.println("|       1.信息输入    2.研究生是否要贷款|");
+System.out.println("|             0.返回主菜单              |");
+System.out.println("-----------------------------------------");
+int a=input.nextInt();
+switch(a){
+        case 1:
+		xingxi();
+		break;
+	
+	case 2:
+		dankuanqueren();
+		break;
+
+	case 0:
+	System.out.println("即将返回主菜单");
+	xueshenxingshi();
+}
+}while(a!=0)
+}
+
+public void xingxi(){
+Scanner input=new Scanner(System.in);
+	System.out.print("请输入研究生的姓名:");
+	String stuName=input.next();
+	System.out.print("请输入研究生的学费:");
+	double fee=input.nextDouble();
+	System.out.print("请输入助教的课时费:");
+	double hourlyPay=input.nextDouble();
+	System.out.print("请输入助教的课时:");
+	int hour=input.nextInt();
+	Graduate graduate=new graduate(teaName,fee,houriyPay);
+        graduate.setFee(fee);
+        graduate.calPay(hour);
+
+do{
+       	System.out.println("是否输入完成?");
+	System.out.println("1.是     2.否");
+        int a=input.nextInt();
+        if(a==1)
+      {  
+        System.out.print("研究生的姓名是："+stuName);
+	System.out.print("研究生的学费为:"+graduate.getFee());
+	System.out.print("研究生的课时费为:"+hourlyPay);
+	System.out.print("研究生的课时:"+hour);
+	System.out.println("研究生的月工资为"+graduate.getPay());
+ 	System.out.println("是否返回主菜单?");
+	System.out.println("1.是");
+        int c=input.nextInt();
+        if(c==1)
+   yanjiushen();
+	}
+        else if(a==2)
+{
+do{
+        System.out.println("是否输入有误?");
+	System.out.println("1.是     2.否");
+        int b=input.nextInt();
+       
+        if(b==1)
+        System.out.println("即将重新输入");
+        xingxi();
+        
+        else if(b==2)
+        System.out.print("研究生的姓名是："+stuName);
+	System.out.print("研究生的学费为:"+graduate.getFee());
+	System.out.print("研究生的课时费为:"+hourlyPay);
+	System.out.print("研究生的课时:"+hour);
+	System.out.println("研究生的月工资为"+graduate.getPay());
+        System.out.println("即将返回主菜单");
+   yanjiushen();
+
+       else
+       System.out.println("输入有误，请重试");  
+   }while(b!=1||b!=2)
+}
+    else
+       System.out.println("输入有误，请重试"); 
+  }while(a!=1||a!=2) 
+}
+
+public void dankuanqueren(){
+Graduate graduate=new graduate();
+graduate.loanStatus();
+ 	System.out.println("是否返回主菜单?");
+	System.out.println("1.是");
+        int c=input.nextInt();
+        if(c==1)
+        menu();
+}
+
+
+public void xuefeijigongzi(){
+Scanner input=new Scanner(System.in);
+do{
+System.out.println("-------------------请选择----------------");
+System.out.println("|    1.收学费                2.发工资   |");
+System.out.println("|             0.返回主菜单              |");
+System.out.println("-----------------------------------------");
+int a=input.nextInt();
+switch(a){
+        case 1:
+		xuefei();
+		break;
+	
+	case 2:
+		gongzi();
+		break;
+
+	case 0:
+	System.out.println("即将返回主菜单");
+	menu();
+}
+}while(a!=0)
+}
+
+public void xuefei(){
+Scanner input=new Scanner(System.in);
+Graduate a=new graduate();
+Undergraduate b=new Undergraduate();
+System.out.println("请输入有多少本科生:");
+int GraduateNumber=nextInt();
+System.out.println("请输入有多少研究生:");
+int UndergraduateNumber=nextInt();
+ yue=balance+a.fee*GraduateNumber+b.fee*UndergraduateNumber;
+System.out.println(yue);
+System.out.println("是否返回菜单?");
+	System.out.println("1.是");
+        int c=input.nextInt();
+        if(c==1)
+        xuefeijigongzi();
+}
+public void xuefei(){
+Scanner input=new Scanner(System.in);
+Professor a=new Professor();
+FuProfessor b=new FuProfessor();
+Lecturer c=new Lecturer();
+Assistant d=new Assistant();
+System.out.println("请输入有多少位教授:");
+int ProfessorNumber=nextInt();
+System.out.println("请输入有多少位副教授:");
+int FuProfessorNumber=nextInt();
+System.out.println("请输入有多少位讲师:");
+int LecturerNumber=nextInt();
+System.out.println("请输入有多少位助教:");
+int AssistantNumber=nextInt();
+yue=yue-a.Pay()*ProfessorNumber-b.Pay()*FuProfessorNumber-c.Pay()*LecturerNumber-d.Pay()*AssistantNumber;
+System.out.println(yue);
+System.out.println("是否返回菜单?");
+	System.out.println("1.是");
+        int c=input.nextInt();
+        if(c==1)
+        xuefeijigongzi();
+}
+
+
+public void caiwuzhuangkuang(){
+System.out.println(yue);
+System.out.println("是否返回菜单?");
+	System.out.println("1.是");
+        int c=input.nextInt();
+        if(c==1)
+   menu();
+}
+public static void main(String[] args)
+{
+menu();
+}
+}
